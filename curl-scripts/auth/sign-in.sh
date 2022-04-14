@@ -2,6 +2,9 @@
 
 API="http://localhost:4741"
 URL_PATH="/sign-in"
+EMAIL="bing@m.com"
+PASSWORD="moe2"
+
 
 curl "${API}${URL_PATH}" \
   --include \
