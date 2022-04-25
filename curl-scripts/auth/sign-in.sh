@@ -2,8 +2,8 @@
 
 API="http://localhost:4741"
 URL_PATH="/sign-in"
-EMAIL="bing@m.com"
-PASSWORD="moe2"
+EMAIL="haha@haha.com"
+PASSWORD="haha3"
 
 
 curl "${API}${URL_PATH}" \
