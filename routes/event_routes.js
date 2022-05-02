@@ -4,10 +4,11 @@ const passport = require('passport')
 const customErrors = require('../lib/custom_errors')
 const handle404 = customErrors.handle404
 const requireOwnership = customErrors.requireOwnership
+const removeBlanks = require('../lib/remove_blank_fields')
 
 const router = express.Router()
 
-const User = require('../models/user')
+// const User = require('../models/user')
 const Game = require('../models/game')
 
 const requireToken = passport.authenticate('bearer', { session: false })
@@ -37,7 +38,7 @@ router.delete('/games/:id', requireToken, (req, res, next) => {
 // INDEX
 // GET /games
 router.get('/games', requireToken, (req, res, next) => {
-  Game.find()
+  Game.find({ owner: req.user.id })
     .populate('owner')
     .then((game) => res.json({ game: game }))
     .catch(next)
@@ -57,7 +58,7 @@ router.get('/games/:id', requireToken, (req, res, next) => {
 
 // UPDATE
 // PATCH /games/:id
-router.patch('/games/:id', requireToken, (req, res, next) => {
+router.patch('/games/:id', requireToken, removeBlanks, (req, res, next) => {
   const id = req.params.id
   const gameData = req.body.game
   Game.findById(id)
