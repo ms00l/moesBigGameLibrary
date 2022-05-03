@@ -63,7 +63,6 @@ router.patch('/games/:id', requireToken, removeBlanks, (req, res, next) => {
   const gameData = req.body.game
   Game.findById(id)
     .then((game) => {
-      console.log(game)
       return game
     })
     .then(handle404)
